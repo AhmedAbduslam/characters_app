@@ -59,8 +59,11 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                       alignment: Alignment.topLeft,
                       child: Hero(
                           tag: 'name',
-                          child: Text(widget.character.name,
-                              style: AppTheme.heading))),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: Text(widget.character.name,
+                                style: AppTheme.heading),
+                          ))),
                   SizedBox(height: 16.0),
                   Align(
                       alignment: Alignment.topLeft,
