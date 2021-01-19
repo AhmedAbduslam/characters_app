@@ -28,11 +28,11 @@ class CharacterWidget extends StatelessWidget {
       child: AnimatedBuilder(
         animation: pageController,
         builder: (context, child) {
-          double value = 1;
-          if (pageController.position.haveDimensions) {
-            value = pageController.page - currentPage;
-            value = (1 - (value.abs() * 0.6)).clamp(0.0, 1.0);
-          }
+          // double value = 1;
+          // if (pageController.position.haveDimensions) {
+          //   value = pageController.page - currentPage;
+          //   value = (1 - (value.abs() * 0.6)).clamp(0.0, 1.0);
+          // }
 
           return Padding(
             padding: const EdgeInsets.only(bottom: 16.0),

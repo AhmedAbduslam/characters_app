@@ -14,7 +14,6 @@ class CharacterDetailScreen extends StatefulWidget {
 class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
   @override
   Widget build(BuildContext context) {
-    Character character = widget.character;
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
