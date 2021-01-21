@@ -1,4 +1,4 @@
-import 'package:characters_app/models/characters.dart';
+import 'package:characters_app/models/character.dart';
 import 'package:characters_app/pages/character_detail_screen.dart';
 import 'package:characters_app/styleguide.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,6 @@ class CharacterWidget extends StatelessWidget {
   final int currentPage;
 
   const CharacterWidget({
-    Key key,
     this.character,
     this.pageController,
     this.currentPage,
@@ -20,93 +19,92 @@ class CharacterWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => CharacterDetailScreen(character)),
-        );
+            context,
+            PageRouteBuilder(
+                transitionDuration: const Duration(milliseconds: 500),
+                pageBuilder: (context, _, __) =>
+                    CharacterDetailScreen(character)));
       },
-      child: AnimatedBuilder(
-        animation: pageController,
-        builder: (context, child) {
-          // double value = 1;
-          // if (pageController.position.haveDimensions) {
-          //   value = pageController.page - currentPage;
-          //   value = (1 - (value.abs() * 0.6)).clamp(0.0, 1.0);
-          // }
-
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
-            child: Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 70),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Hero(
-                      tag: 'background',
-                      child: ClipPath(
-                        clipper: CharacterCardShaper(),
-                        child: Container(
-                          height: double.infinity,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: character.colors,
-                              begin: Alignment.topRight,
-                              end: Alignment.bottomLeft,
-                            ),
-                          ),
-                        ),
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 16.0),
+        child: Stack(
+          children: [
+            Container(
+              alignment: Alignment.bottomCenter,
+              padding: const EdgeInsets.only(top: 70),
+              child: Hero(
+                tag: 'background',
+                child: ClipPath(
+                  clipper: CharacterCardShaper(),
+                  child: Container(
+                    height: double.infinity,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: character.colors,
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomLeft,
                       ),
                     ),
                   ),
                 ),
-                Padding(
+              ),
+            ),
+            AnimatedBuilder(
+              animation: pageController,
+              builder: (context, _) {
+                double value = 1;
+                double position = 1.0;
+
+                if (pageController.position.haveDimensions) {
+                  value = pageController.page - currentPage;
+                  var some = 1 - (value * 2);
+                  position = some.clamp(-1.0, 1.0);
+                  print(position);
+                  value = (1 - (value.abs() * 0.7)).clamp(0.6, 1.0);
+                }
+
+                return Container(
+                  alignment: Alignment(position, 0.0),
                   padding: const EdgeInsets.only(bottom: 70.0),
-                  child: Align(
-                    alignment: Alignment.topRight,
+                  child: FractionallySizedBox(
+                    heightFactor: value,
                     child: Hero(
                       tag: 'image',
-                      child: Image.asset(
-                        character.imagePath,
-                        fit: BoxFit.contain,
+                      child: Image.asset(character.imagePath),
+                    ),
+                  ),
+                );
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 32, right: 16, bottom: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Material(
+                    color: Colors.transparent,
+                    child: Hero(
+                      tag: 'name',
+                      child: Material(
+                        color: Colors.transparent,
+                        child: Text(
+                          character.name,
+                          style: AppTheme.heading,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 32, right: 16, bottom: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Material(
-                        color: Colors.transparent,
-                        child: Container(
-                          child: Hero(
-                            tag: 'name',
-                            child: Material(
-                              color: Colors.transparent,
-                              child: Text(
-                                character.name,
-                                style: AppTheme.heading,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Text(
-                        "Tap to Read more",
-                        style: AppTheme.subHeading,
-                      ),
-                    ],
+                  Text(
+                    "Tap to Read more",
+                    style: AppTheme.subHeading,
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          );
-        },
+          ],
+        ),
       ),
     );
   }

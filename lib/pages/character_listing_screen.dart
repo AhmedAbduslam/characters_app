@@ -1,4 +1,4 @@
-import 'package:characters_app/models/characters.dart';
+import 'package:characters_app/models/character.dart';
 import 'package:characters_app/styleguide.dart';
 import 'package:characters_app/widgets/character_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,10 @@ class _MyHomePageState extends State<CharacterListingScreen> {
   void initState() {
     super.initState();
     _pageController = PageController(
-        viewportFraction: 1.0, initialPage: currentPage, keepPage: false);
+      viewportFraction: 1.0,
+      initialPage: currentPage,
+      keepPage: false,
+    );
   }
 
   @override
@@ -24,9 +27,7 @@ class _MyHomePageState extends State<CharacterListingScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          leading: Icon(
-            Icons.arrow_back_ios,
-          ),
+          leading: Icon(Icons.arrow_back_ios),
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 16),
@@ -35,12 +36,12 @@ class _MyHomePageState extends State<CharacterListingScreen> {
           ],
         ),
         body: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 32.0),
                 child: RichText(
                   text: TextSpan(
                     children: [
@@ -53,14 +54,14 @@ class _MyHomePageState extends State<CharacterListingScreen> {
               ),
               Expanded(
                 child: PageView(
-                  physics: ClampingScrollPhysics(),
+                  physics: BouncingScrollPhysics(),
                   controller: _pageController,
                   children: <Widget>[
-                    for (var i = 0; i < Character.characters.length; i++)
+                    for (var i = 0; i < characters.length; i++)
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 32.0),
                         child: CharacterWidget(
-                            character: Character.characters[i],
+                            character: characters[i],
                             pageController: _pageController,
                             currentPage: i),
                       )

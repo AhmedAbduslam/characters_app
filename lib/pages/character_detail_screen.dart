@@ -1,6 +1,7 @@
-import 'package:characters_app/models/characters.dart';
+import 'package:characters_app/models/character.dart';
 import 'package:characters_app/styleguide.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class CharacterDetailScreen extends StatefulWidget {
   final Character character;
@@ -32,21 +33,13 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
               ),
             ),
           ),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 32.0, vertical: 24.0),
-            child: SingleChildScrollView(
+          SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 32.0, vertical: 24.0),
               child: Column(
                 children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: IconButton(
-                      iconSize: 40,
-                      icon: Icon(Icons.close),
-                      color: Colors.white.withOpacity(0.9),
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                  ),
                   Align(
                     alignment: Alignment.topRight,
                     child: Hero(
@@ -70,6 +63,18 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                       child: Text(widget.character.description,
                           style: AppTheme.subHeading)),
                 ],
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 24.0),
+              child: IconButton(
+                iconSize: 40,
+                icon: Icon(Icons.close),
+                color: Colors.white.withOpacity(0.9),
+                onPressed: () => Navigator.pop(context),
               ),
             ),
           ),

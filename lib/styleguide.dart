@@ -28,7 +28,7 @@ class AppTheme {
   static final TextStyle subHeading = TextStyle(
     fontFamily: 'WorkSans',
     fontWeight: FontWeight.w500,
-    fontSize: 24,
+    fontSize: 16,
     color: Colors.white.withOpacity(0.9),
   );
 }
