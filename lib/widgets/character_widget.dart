@@ -60,7 +60,7 @@ class CharacterWidget extends StatelessWidget {
                   value = pageController.page - currentPage;
                   var some = 1 - (value * 2);
                   position = some.clamp(-1.0, 1.0);
-                  print(position);
+                  // print(position);
                   value = (1 - (value.abs() * 0.7)).clamp(0.6, 1.0);
                 }
 

@@ -64,7 +64,7 @@ class _MyHomePageState extends State<CharacterListingScreen> {
                             character: characters[i],
                             pageController: _pageController,
                             currentPage: i),
-                      )
+                      ),
                   ],
                 ),
               ),
