@@ -60,15 +60,15 @@ class CharacterWidget extends StatelessWidget {
                   value = pageController.page - currentPage;
                   var some = 1 - (value * 2);
                   position = some.clamp(-1.0, 1.0);
-                  // print(position);
                   value = (1 - (value.abs() * 0.7)).clamp(0.6, 1.0);
                 }
 
                 return Container(
                   alignment: Alignment(position, 0.0),
-                  padding: const EdgeInsets.only(bottom: 70.0),
+                  padding: const EdgeInsets.only(
+                      bottom: 70.0, left: 16.0, right: 16.0),
                   child: FractionallySizedBox(
-                    heightFactor: value,
+                    widthFactor: value,
                     child: Hero(
                       tag: 'image',
                       child: Image.asset(character.imagePath),
